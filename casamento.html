@@ -1,0 +1,1481 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Casamento — Vinicius & Rute</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&display=swap"
+        rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+
+
+    <style>
+        /* RSVP centralizado */
+        .rsvp-wrap {
+            max-width: 720px;
+            margin: 0 auto;
+        }
+
+        .rsvp-title,
+        .rsvp-subtitle {
+            text-align: center;
+        }
+
+        .rsvp-card {
+            text-align: center;
+            /* centraliza textos do card */
+        }
+
+        .rsvp-section {
+            padding: 16px 0;
+        }
+
+        .rsvp-section+.rsvp-section {
+            border-top: 1px solid #eee;
+            /* separa as sessões */
+        }
+
+        .rsvp-section-title {
+            font-weight: 800;
+            margin: 0 0 10px;
+        }
+
+        .rsvp-field {
+            text-align: left;
+            /* label alinhado bonitinho */
+            margin-top: 10px;
+        }
+
+        .rsvp-field label {
+            display: inline-block;
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+
+        .rsvp-select,
+        .rsvp-input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #eee;
+            border-radius: 10px;
+            margin: 0;
+        }
+
+        .rsvp-actions {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-top: 12px;
+        }
+
+        .rsvp-row {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        @media (max-width: 520px) {
+            .rsvp-row {
+                flex-direction: column;
+                align-items: stretch;
+            }
+        }
+
+
+        /* RSVP centralizado e com largura agradável */
+        .rsvp-wrap {
+            max-width: 680px;
+            /* ajuste aqui se quiser mais largo/estreito */
+            margin: 0 auto;
+            /* centraliza */
+        }
+
+        .rsvp-title,
+        .rsvp-subtitle {
+            text-align: center;
+        }
+
+        .rsvp-card {
+            margin-top: 18px;
+        }
+
+        /* Inputs mais “clean” e padronizados */
+        .rsvp-input,
+        .rsvp-select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #eee;
+            border-radius: 10px;
+            margin: 6px 0 12px;
+        }
+
+        /* Linhas de nome (input + botão) sem estourar */
+        .rsvp-row {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        @media (max-width: 520px) {
+            .rsvp-row {
+                flex-direction: column;
+                align-items: stretch;
+            }
+        }
+
+        :root {
+            --bg: #ffffff;
+            --bg-soft: #faf7f7;
+            --text: #1f2937;
+            --muted: #6b7280;
+            --brand: #b45309;
+            /* dourado queimado */
+            --brand-2: #f59e0b;
+            /* âmbar */
+            --card: #ffffff;
+            --ring: #f7e7c3;
+            --radius: 16px;
+            --shadow: 0 6px 22px rgba(0, 0, 0, .08);
+        }
+
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box
+        }
+
+        html,
+        body {
+            margin: 0;
+            padding: 0;
+            background: var(--bg);
+            color: var(--text);
+            font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, "Noto Sans", "Helvetica Neue", Arial, "Apple Color Emoji", "Segoe UI Emoji";
+        }
+
+        a {
+            color: var(--brand);
+            text-decoration: none
+        }
+
+        img {
+            max-width: 100%;
+            display: block;
+            border-radius: var(--radius)
+        }
+
+        /* Layout */
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 24px
+        }
+
+        header.hero {
+            position: relative;
+            isolation: isolate;
+            padding: 56px 0;
+            background: linear-gradient(180deg, var(--bg-soft), #fff)
+        }
+
+        .hero .wrap {
+            display: grid;
+            gap: 20px;
+            align-items: center;
+            grid-template-columns: 1.1fr .9fr
+        }
+
+        .badge {
+            display: inline-block;
+            background: var(--ring);
+            color: var(--brand);
+            padding: 6px 12px;
+            border-radius: 999px;
+            font-weight: 600;
+            letter-spacing: .3px
+        }
+
+        h1 {
+            font-size: clamp(28px, 4vw, 44px);
+            margin: 8px 0 0 0;
+            line-height: 1.1
+        }
+
+        .subtitle {
+            color: var(--muted);
+            font-size: clamp(14px, 2vw, 18px)
+        }
+
+        nav.nav {
+            position: sticky;
+            top: 0;
+            z-index: 999;
+            background: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+        }
+
+        .nav-inner {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 10px 16px;
+            display: grid;
+            grid-template-columns: 44px 1fr auto;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* Logo */
+        .nav-logo {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 6px 12px;
+            border-radius: 999px;
+            text-decoration: none;
+        }
+
+        .nav-logo-badge {
+            width: 34px;
+            height: 34px;
+            display: grid;
+            place-items: center;
+            border-radius: 999px;
+            background: linear-gradient(180deg, var(--ring), #fff);
+            border: 1px solid rgba(180, 83, 9, 0.25);
+            color: var(--brand);
+            font-weight: 900;
+        }
+
+        .nav-logo-text {
+            font-weight: 850;
+            color: #1f2937;
+            letter-spacing: 0.2px;
+        }
+
+        /*nav.nav .container {
+            display: flex;
+            gap: 18px;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap
+        }*/
+        .nav-burger {
+            position: relative;
+            z-index: 1001;
+        }
+
+        .nav-mobile {
+            position: relative;
+            z-index: 1000;
+        }
+
+        /* Links padrão */
+        nav.nav a {
+            color: #374151;
+            font-weight: 650;
+            text-decoration: none;
+            padding: 8px 10px;
+            border-radius: 999px;
+            transition: background .2s ease, color .2s ease, transform .2s ease;
+        }
+
+        nav.nav a:hover {
+            background: rgba(180, 83, 9, 0.10);
+            color: var(--brand);
+            transform: translateY(-1px);
+        }
+
+        /* CTA Desktop (direita, sem sumir) */
+        .nav-cta-desktop {
+            background: var(--brand);
+            color: #fff !important;
+            border: 1px solid var(--brand);
+            box-shadow: 0 8px 18px rgba(180, 83, 9, 0.18);
+            padding: 9px 12px;
+        }
+
+        .nav-cta-desktop:hover {
+            background: #9a4307 !important;
+        }
+
+
+        /* LINKS DESKTOP centralizados (note o segredo: justify-content:center) */
+        .nav-links-desktop {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 16px 12px 16px;
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        /* Hambúrguer */
+        .nav-burger {
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            border: 1px solid rgba(0, 0, 0, 0.08);
+            background: #fff;
+            cursor: pointer;
+            padding: 8px;
+        }
+
+
+        .nav-burger span {
+            display: block;
+            height: 2px;
+            background: #374151;
+            border-radius: 999px;
+            margin: 6px 0;
+            transition: transform .2s ease, opacity .2s ease;
+        }
+
+        /* Menu mobile */
+        .nav-mobile {
+            display: none;
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 16px 16px 16px;
+        }
+
+        .nav-mobile a {
+            display: block;
+            text-align: center;
+            margin-top: 10px;
+            padding: 12px 12px;
+            border: 1px solid rgba(0, 0, 0, 0.06);
+            background: #fff;
+            border-radius: 14px;
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
+        }
+
+        /* CTA no mobile */
+        .nav-cta-mobile {
+            background: var(--brand) !important;
+            color: #fff !important;
+            border: 1px solid var(--brand) !important;
+        }
+
+
+
+        section {
+            padding: 56px 0
+        }
+
+        section.alt {
+            background: var(--bg-soft)
+        }
+
+        h2 {
+            font-size: clamp(22px, 3.5vw, 32px);
+            margin: 0 0 16px
+        }
+
+        p {
+            line-height: 1.65
+        }
+
+        /* Countdown */
+        .countdown {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap
+        }
+
+        .pill {
+            background: #fff;
+            border: 1px solid #eee;
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+            padding: 12px 14px;
+            min-width: 84px;
+            text-align: center
+        }
+
+        .pill .num {
+            font-size: 22px;
+            font-weight: 700;
+            display: block
+        }
+
+        .pill .lbl {
+            font-size: 12px;
+            color: var(--muted)
+        }
+
+        /* Cards simples */
+        .card {
+            background: var(--card);
+            border: 1px solid #eee;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            padding: 20px
+        }
+
+        /* Grid responsivo */
+        .grid {
+            display: grid;
+            gap: 20px
+        }
+
+        .grid.cols-2 {
+            grid-template-columns: repeat(2, minmax(0, 1fr))
+        }
+
+        .grid.cols-3 {
+            grid-template-columns: repeat(3, minmax(0, 1fr))
+        }
+
+        /* Responsivo: no mobile some o bloco desktop e aparece o dropdown */
+        @media (max-width: 820px) {
+            .nav-links-desktop {
+                display: none;
+            }
+
+            .nav-cta-desktop {
+                display: none;
+            }
+
+            .nav-mobile.open {
+                display: block;
+            }
+        }
+
+        /* Ajuste para sticky não esconder o topo das seções */
+        section,
+        header {
+            scroll-margin-top: 110px;
+        }
+
+        /* Lista de Presentes */
+        .gift-grid {
+            display: grid;
+            gap: 20px;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+        }
+
+        .gift-item {
+            background: #fff;
+            border: 1px solid #eee;
+            border-radius: 16px;
+            box-shadow: 0 6px 22px rgba(0, 0, 0, .08);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            text-align: center;
+            transition: transform .2s ease, box-shadow .2s ease;
+        }
+
+        .gift-item:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 26px rgba(0, 0, 0, .12);
+        }
+
+        .gift-item img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            background: #f9f9f9;
+        }
+
+        .gift-item h3 {
+            font-size: 16px;
+            font-weight: 700;
+            margin: 12px 8px;
+        }
+
+        .gift-actions {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin: 10px 0 16px;
+            padding: 0 14px;
+        }
+
+        .btn {
+            cursor: pointer;
+            border: 1px solid var(--brand);
+            background: var(--brand);
+            color: #fff;
+            padding: 8px 14px;
+            border-radius: 10px;
+            font-weight: 700;
+        }
+
+        .btn.secondary {
+            background: transparent;
+            color: var(--brand)
+        }
+
+        .btn:hover {
+            opacity: .9
+        }
+
+        .hint {
+            font-size: 12px;
+            color: var(--muted)
+        }
+
+        /* RSVP embed */
+        .iframe-wrap {
+            aspect-ratio: 4/5;
+            width: 100%;
+            border: 0
+        }
+
+        /* Footer */
+        footer {
+            padding: 28px 0;
+            background: linear-gradient(180deg, #fff, var(--bg-soft));
+            color: var(--muted);
+            text-align: center
+        }
+
+        /* ===== FORÇA 1 COLUNA NO MOBILE (História + Informações) ===== */
+        @media (max-width: 900px) {
+            section#historia .container.grid.cols-2 {
+                grid-template-columns: 1fr !important;
+            }
+        }
+
+        /* ===== GARANTE QUE O MAPA NÃO ESTOURE A LARGURA ===== */
+        #informacoes iframe {
+            width: 100% !important;
+            max-width: 100% !important;
+            display: block;
+        }
+
+        /* =========================
+   NAV RESPONSIVO (CASAMENTO)
+   ========================= */
+        nav.nav {
+            position: sticky;
+            top: 0;
+            z-index: 999;
+            background: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+        }
+
+        .nav-inner {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 10px 16px;
+            display: grid;
+            grid-template-columns: 44px 1fr auto;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* Logo central */
+        .nav-logo {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 6px 10px;
+            border-radius: 999px;
+            text-decoration: none;
+        }
+
+        .nav-logo-badge {
+            width: 34px;
+            height: 34px;
+            display: grid;
+            place-items: center;
+            border-radius: 999px;
+            background: linear-gradient(180deg, var(--ring), #fff);
+            border: 1px solid rgba(180, 83, 9, 0.25);
+            color: var(--brand);
+            font-weight: 900;
+        }
+
+        .nav-logo-text {
+            font-weight: 850;
+            color: #1f2937;
+            letter-spacing: 0.2px;
+            white-space: nowrap;
+        }
+
+        /* Links Desktop */
+        .nav-links-desktop {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 16px 12px 16px;
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .nav-links-desktop a {
+            color: #374151;
+            font-weight: 650;
+            text-decoration: none;
+            padding: 8px 10px;
+            border-radius: 999px;
+            transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease;
+        }
+
+        .nav-links-desktop a:hover {
+            background: rgba(180, 83, 9, 0.10);
+            color: var(--brand);
+            transform: translateY(-1px);
+        }
+
+        /* CTA Desktop */
+        .nav-cta-desktop {
+            background: var(--brand);
+            color: #fff !important;
+            border: 1px solid var(--brand);
+            box-shadow: 0 8px 18px rgba(180, 83, 9, 0.18);
+            padding: 9px 12px;
+            border-radius: 999px;
+            font-weight: 750;
+            text-decoration: none;
+            white-space: nowrap;
+        }
+
+        .nav-cta-desktop:hover {
+            background: #9a4307 !important;
+        }
+
+        /* Burger */
+        .nav-burger {
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            border: 1px solid rgba(0, 0, 0, 0.08);
+            background: #fff;
+            cursor: pointer;
+            padding: 8px;
+        }
+
+        .nav-burger span {
+            display: block;
+            height: 2px;
+            background: #374151;
+            border-radius: 999px;
+            margin: 6px 0;
+            transition: transform 0.2s ease, opacity 0.2s ease;
+        }
+
+        /* Menu mobile */
+        .nav-mobile {
+            display: none;
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 16px 16px 16px;
+        }
+
+        .nav-mobile a {
+            display: block;
+            text-align: center;
+            margin-top: 10px;
+            padding: 12px 12px;
+            border: 1px solid rgba(0, 0, 0, 0.06);
+            background: #fff;
+            border-radius: 14px;
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
+            color: #374151;
+            font-weight: 700;
+        }
+
+        .nav-cta-mobile {
+            background: var(--brand) !important;
+            color: #fff !important;
+            border: 1px solid var(--brand) !important;
+        }
+
+        /* Responsivo */
+        @media (max-width: 820px) {
+            .nav-links-desktop {
+                display: none;
+            }
+
+            .nav-cta-desktop {
+                display: none;
+            }
+
+            .nav-mobile.open {
+                display: block;
+            }
+        }
+
+        /* Não deixar o sticky esconder o topo ao clicar */
+        section,
+        header {
+            scroll-margin-top: 110px;
+        }
+
+
+        :root {
+            --font-title: "Playfair Display", serif;
+            --font-body: "Inter", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+        }
+
+        html,
+        body {
+            font-family: var(--font-body);
+        }
+
+        /* Títulos com cara de casamento */
+        h1,
+        h2,
+        .nav-logo-text {
+            font-family: var(--font-title);
+            letter-spacing: 0.2px;
+        }
+
+        /* Ajuste opcional: deixa o título mais elegante */
+        h1 {
+            font-weight: 700;
+        }
+
+        /* =========================
+   FIX NAV - BURGER SÓ NO MOBILE
+   (coloque no FINAL do <style>)
+   ========================= */
+
+        /* Desktop: esconde burger e ajusta layout */
+        .nav-burger {
+            display: none !important;
+        }
+
+        .nav-inner {
+            grid-template-columns: 1fr auto !important;
+            /* logo central + CTA direita */
+        }
+
+        .nav-logo {
+            justify-self: center !important;
+        }
+
+        .nav-cta-desktop {
+            justify-self: end !important;
+        }
+
+        /* Mobile: mostra burger, esconde CTA desktop, abre menu */
+        @media (max-width: 820px) {
+            .nav-burger {
+                display: block !important;
+            }
+
+            .nav-inner {
+                grid-template-columns: 44px 1fr !important;
+                /* burger + logo */
+            }
+
+            .nav-cta-desktop {
+                display: none !important;
+            }
+
+            .nav-links-desktop {
+                display: none !important;
+            }
+
+            .nav-mobile.open {
+                display: block !important;
+            }
+        }
+
+        /* =========================
+   CTA DESKTOP - SEM BLOCO MARROM
+   ========================= */
+        .nav-cta-desktop {
+            background: transparent !important;
+            border: none !important;
+            box-shadow: none !important;
+            color: #374151 !important;
+
+            padding: 8px 10px !important;
+            border-radius: 10px !important;
+
+            font-weight: 800 !important;
+            position: relative;
+        }
+
+        /* Linha abaixo (underline romântico) */
+        .nav-cta-desktop::after {
+            content: "";
+            position: absolute;
+            left: 10px;
+            right: 10px;
+            bottom: 4px;
+            height: 2px;
+
+            background: rgba(180, 83, 9, 0.45);
+            /* dourado suave */
+            border-radius: 999px;
+
+            transform: scaleX(0.7);
+            transform-origin: center;
+            transition: transform 0.2s ease, opacity 0.2s ease;
+            opacity: 0.85;
+        }
+
+        .nav-cta-desktop:hover::after {
+            transform: scaleX(1);
+            opacity: 1;
+        }
+
+        /* Se você NÃO quer “efeito marrom” ao passar o mouse nos links */
+        .nav-links-desktop a:hover {
+            background: transparent !important;
+            transform: none !important;
+            color: var(--brand) !important;
+            text-decoration: underline;
+            text-underline-offset: 6px;
+            text-decoration-thickness: 2px;
+        }
+
+        nav.nav {
+            border-bottom: 2px solid rgba(180, 83, 9, 0.12) !important;
+            /* linha suave */
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        .nav-logo-img {
+            width: 140px;
+            height: 150px;
+            object-fit: contain;
+            border-radius: 10px;
+            /* opcional */
+        }
+
+        /* REMOVE QUALQUER EFEITO DE HOVER DA LOGO */
+        .nav-logo:hover,
+        .nav-logo:focus,
+        .nav-logo:active {
+            background: transparent !important;
+            transform: none !important;
+            box-shadow: none !important;
+        }
+
+        /* Garante que a imagem não sofra efeito visual */
+        .nav-logo-img {
+            transition: none !important;
+        }
+
+        /* Caso exista hover aplicado diretamente na img */
+        .nav-logo-img:hover {
+            transform: none !important;
+            filter: none !important;
+        }
+
+        
+    </style>
+</head>
+
+<body>
+
+    <!-- NAV -->
+    <!-- <nav class="nav">
+        <div class="container">
+            <a href="#inicio">Início</a>
+            <a href="#historia">Nossa história</a>
+            <a href="#informacoes">Informações</a>
+            <a href="#presentes">Lista de presentes</a>
+            <a href="#rsvp">Confirmação (RSVP)</a>
+        </div>
+    </nav> -->
+
+    <!-- NAV (RESPONSIVO) -->
+    <nav class="nav" aria-label="Navegação principal">
+        <div class="nav-inner">
+            <!-- Burger (mobile) -->
+            <button class="nav-burger" id="navBurger" type="button" aria-label="Abrir menu" aria-expanded="false"
+                aria-controls="navMobile">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+
+            <!-- Logo central -->
+            <a class="nav-logo" href="#inicio" aria-label="Ir para o início">
+                <img src="WhatsApp Image 2026-02-01 at 00.33.35.jpeg" alt="Vinicius & Rute" class="nav-logo-img">
+            </a>
+
+
+        </div>
+
+        <!-- Links Desktop -->
+        <div class="nav-links-desktop" aria-label="Links de navegação">
+            <a href="#inicio">Início</a>
+            <a href="#historia">Nossa história</a>
+            <a href="#presentes">Lista de presentes</a>
+            <a href="#rsvp">Confirmação</a>
+        </div>
+
+        <!-- Menu Mobile (dropdown) -->
+        <div class="nav-mobile" id="navMobile" aria-hidden="true">
+            <a href="#inicio">Início</a>
+            <a href="#historia">Nossa história</a>
+            <a href="#presentes">Lista de presentes</a>
+            <a class="nav-cta-mobile" href="#rsvp">Confirmar presença</a>
+        </div>
+    </nav>
+
+
+    <!-- HERO -->
+    <header id="inicio" class="hero">
+        <div class="container wrap">
+            <div>
+                <span class="badge">💍 Casamento</span>
+                <h1>Vinicius & Rute</h1>
+
+                <div id="countdown" class="countdown" data-date="2026-03-22T16:00:00-03:00">
+                    <div class="pill"><span class="num" id="d">0</span><span class="lbl">Dias</span></div>
+                    <div class="pill"><span class="num" id="h">0</span><span class="lbl">Horas</span></div>
+                    <div class="pill"><span class="num" id="m">0</span><span class="lbl">Min</span></div>
+                    <div class="pill"><span class="num" id="s">0</span><span class="lbl">Seg</span></div>
+                </div>
+
+                <p class="hint" style="margin-top:10px">
+                    Altere a data em <code>data-date</code> para ajustar a contagem regressiva.
+                </p>
+            </div>
+            <div>
+                <img src="WhatsApp Image 2026-01-31 at 13.30.17.jpeg" alt="Foto do casal" />
+            </div>
+        </div>
+    </header>
+
+    <!-- HISTÓRIA -->
+    <section id="historia">
+        <div class="container grid cols-2">
+            <div class="card">
+                <h2>💌 Nossa história</h2>
+                <p>
+                    Nossa história começou de um jeito simples, mas profundamente especial.
+                    Nos conhecemos enquanto servíamos na igreja, em um tempo em que nenhum de nós
+                    estava à procura de alguém. Nosso coração estava focado em Deus, e nossas orações
+                    eram claras: se um dia fôssemos encontrar alguém, que fosse na caminhada com Cristo,
+                    com a mesma missão, visão e propósito.
+                </p>
+
+                <p>
+                    E foi assim, sem planejarmos, que Deus escreveu a nossa história.
+                </p>
+
+                <p>
+                    Entre tarefas, conversas simples e momentos de serviço, fomos nos conhecendo.
+                    Não houve pressa, nem expectativas criadas pela emoção, mas a certeza tranquila
+                    de que aquilo vinha do Senhor. Enquanto arrumávamos a igreja, servindo à casa de Deus,
+                    entendemos que Ele também estava organizando nossos caminhos.
+                </p>
+
+                <p>
+                    Ali, no lugar onde aprendemos a amar, servir e confiar, tivemos a certeza:
+                    éramos resposta de oração um para o outro.
+                </p>
+
+                <p>
+                    Nossa história não começou em um acaso, mas em um propósito. Começou com Deus no centro,
+                    e é com Ele que queremos construir cada capítulo da nossa vida, firmados na rocha,
+                    caminhando juntos, de mãos dadas, servindo, amando e vivendo tudo aquilo que Ele
+                    sonhou para nós.
+                </p>
+            </div>
+
+            <div class="card" id="informacoes">
+                <h2>📅 Cerimônia & Recepção</h2>
+                <p><strong>Data:</strong> 22/03/2026 às 15:00</p>
+                <p><strong>Local:</strong> Espaço Solar DKell, Atrás do Atakarejo - R. Guaraçaima, 15 - Piatã —
+                    Salvador/BA</p>
+                <div style="border-radius:12px;overflow:hidden;border:1px solid #eee">
+                    <iframe
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3888.323140090813!2d-38.382449124923966!3d-12.951162587362312!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x71619e1b1210977%3A0x360c31f0beba5771!2sEspa%C3%A7o%20Solar%20DKell!5e0!3m2!1spt-BR!2sbr!4v1770005180368!5m2!1spt-BR!2sbr"
+                        width="100%" height="260" style="border:0" loading="lazy"
+                        referrerpolicy="no-referrer-when-downgrade">
+                    </iframe>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PRESENTES -->
+    <section id="presentes" class="alt">
+        <div class="container">
+            <h2>🎁 Lista de Presentes</h2>
+            <p>
+                Se desejar nos presentear, escolha um item abaixo.
+                O pagamento (PIX ou cartão) é feito pelo mesmo link. 💛
+            </p>
+
+            <div class="gift-grid" id="giftGrid"></div>
+
+            <div style="text-align:center;margin-top:20px;">
+                <button id="showMoreBtn" class="btn secondary">Exibir mais presentes</button>
+            </div>
+
+            <!-- <script>
+                // =========================
+                // CONFIGURAÇÕES
+                // =========================
+                // const PIX_KEY = "viniweberrute@gmail.com";
+                // const CARD_PAYMENT_LINK = "LINK_DO_CARTAO_AQUI"; // troque aqui 1 vez só
+                const GIFT_PAYMENT_LINK = "https://linknabio.gg/rutehelen23";
+
+
+                // function copiarPix() {
+                //     navigator.clipboard
+                //         .writeText(PIX_KEY)
+                //         .then(() => alert("Chave PIX copiada com sucesso!"))
+                //         .catch(() => alert("Não foi possível copiar a chave PIX."));
+                // }
+
+                // =========================
+                // LISTA DE PRESENTES
+                // =========================
+                const GIFTS = [
+                    { title: "Varal de Chão — R$ 60,00", imgUrl: "https://source.unsplash.com/800x600/?clothesline,home" },
+                    { title: "Travesseiros — R$ 140,00", imgUrl: "https://source.unsplash.com/800x600/?pillow,bedroom" },
+                    { title: "Jogo de Pratos — R$ 178,00", imgUrl: "https://source.unsplash.com/800x600/?dinnerware,plates" },
+                    { title: "Jogo de Panela — R$ 189,90", imgUrl: "https://source.unsplash.com/800x600/?cookware,pots" },
+                    { title: "Potes de Temperos (Vidro) — R$ 70,00", imgUrl: "https://source.unsplash.com/800x600/?spice,jars" },
+                    { title: "Kit Assadeira — R$ 70,00", imgUrl: "https://source.unsplash.com/800x600/?baking,tray" },
+                    { title: "Kit Frigideira — R$ 99,00", imgUrl: "https://source.unsplash.com/800x600/?frying-pan,kitchen" },
+                    { title: "Micro-ondas — R$ 487,00", imgUrl: "https://source.unsplash.com/800x600/?microwave,kitchen" },
+                    { title: "Mesa (Sala) — R$ 999,99", imgUrl: "https://source.unsplash.com/800x600/?dining-table,living-room" },
+                    { title: "Armário de Cozinha — R$ 1.357,00", imgUrl: "https://source.unsplash.com/800x600/?kitchen,cabinet" },
+                    { title: "Guarda-roupa — R$ 1.551,00", imgUrl: "https://source.unsplash.com/800x600/?wardrobe,closet" },
+                    { title: "TV 40\" — R$ 1.299,99", imgUrl: "https://source.unsplash.com/800x600/?tv,living-room" },
+                    { title: "Sofá — R$ 679,31", imgUrl: "https://source.unsplash.com/800x600/?sofa,living-room" },
+
+                    { title: "Vale-presente — R$ 50,00", imgUrl: "https://source.unsplash.com/800x600/?gift-card,present" },
+                    { title: "Vale-presente — R$ 100,00", imgUrl: "https://source.unsplash.com/800x600/?gift,voucher" },
+                    { title: "Vale-presente — R$ 200,00", imgUrl: "https://source.unsplash.com/800x600/?present,gift" },
+                    { title: "Vale-presente — R$ 500,00", imgUrl: "https://source.unsplash.com/800x600/?gift,card" }
+                ];
+
+                // =========================
+                // RENDERIZAÇÃO AUTOMÁTICA
+                // =========================
+                function createGiftCard(gift) {
+                    const article = document.createElement("article");
+                    article.className = "gift-item";
+
+                    const img = document.createElement("img");
+                    img.src = gift.imgUrl;
+                    img.onerror = () => {
+                        img.src = "https://source.unsplash.com/800x600/?wedding,flowers";
+                    };
+
+                    img.alt = gift.title;
+                    img.loading = "lazy";
+
+                    const h3 = document.createElement("h3");
+                    h3.textContent = gift.title;
+
+                    const actions = document.createElement("div");
+                    actions.className = "gift-actions";
+
+                    const presentearLink = document.createElement("a");
+                    presentearLink.className = "btn";
+                    presentearLink.href = GIFT_PAYMENT_LINK;
+                    presentearLink.target = "_blank";
+                    presentearLink.rel = "noopener noreferrer";
+                    presentearLink.textContent = "Presentear";
+
+                    actions.appendChild(presentearLink);
+
+                    article.appendChild(img);
+                    article.appendChild(h3);
+                    article.appendChild(actions);
+
+                    return article;
+                }
+
+                document.addEventListener("DOMContentLoaded", () => {
+                    const grid = document.getElementById("giftGrid");
+                    const showMoreBtn = document.getElementById("showMoreBtn");
+
+                    // Renderiza todos os itens
+                    GIFTS.forEach((gift) => {
+                        grid.appendChild(createGiftCard(gift));
+                    });
+
+                    // Mantém sua lógica de "Exibir mais"
+                    const items = grid.querySelectorAll(".gift-item");
+                    let visibleCount = 8;
+
+                    function updateVisibility() {
+                        items.forEach((item, index) => {
+                            item.style.display = index < visibleCount ? "flex" : "none";
+                        });
+                        if (visibleCount >= items.length) {
+                            showMoreBtn.style.display = "none";
+                        }
+                    }
+
+                    showMoreBtn.addEventListener("click", () => {
+                        visibleCount += 8;
+                        updateVisibility();
+                    });
+
+                    updateVisibility();
+                });
+            </script> -->
+
+
+            <script>
+                // =========================
+                // CONFIGURAÇÕES
+                // =========================
+                const GIFT_PAYMENT_LINK = "https://linknabio.gg/rutehelen23";
+
+                const FALLBACK_IMAGE =
+                    "https://images.unsplash.com/photo-1529634806980-85c3dd6d34ac?auto=format&fit=crop&w=1200&q=80";
+
+                // =========================
+                // LISTA DE PRESENTES (COM IMAGENS)
+                // =========================
+                const GIFTS = [
+                    { title: "Varal de Chão — R$ 60,00", imgUrl: "https://images.unsplash.com/photo-1520975916090-3105956dac38?auto=format&fit=crop&w=1200&q=80" },
+                    { title: "Travesseiros — R$ 140,00", imgUrl: "https://images.unsplash.com/photo-1582582621959-48d27397dc4c?auto=format&fit=crop&w=1200&q=80" },
+                    { title: "Jogo de Pratos — R$ 178,00", imgUrl: "https://images.unsplash.com/photo-1529692236671-f1f6cf9683ba?auto=format&fit=crop&w=1200&q=80" },
+                    { title: "Jogo de Panela — R$ 189,90", imgUrl: "https://images.unsplash.com/photo-1611690749747-7b2d3b8b4c93?auto=format&fit=crop&w=1200&q=80" },
+                    { title: "Potes de Temperos (Vidro) — R$ 70,00", imgUrl: "https://images.unsplash.com/photo-1604908177522-040d7f3ecf59?auto=format&fit=crop&w=1200&q=80" },
+                    { title: "Kit Assadeira — R$ 70,00", imgUrl: "https://images.unsplash.com/photo-1606313564200-e75d5e30476e?auto=format&fit=crop&w=1200&q=80" },
+                    { title: "Kit Frigideira — R$ 99,00", imgUrl: "https://images.unsplash.com/photo-1604909053197-7c1a3b6b5f57?auto=format&fit=crop&w=1200&q=80" },
+                    { title: "Micro-ondas — R$ 487,00", imgUrl: "https://images.unsplash.com/photo-1584269600464-37b1b58a9fe7?auto=format&fit=crop&w=1200&q=80" },
+                    { title: "Mesa (Sala) — R$ 999,99", imgUrl: "https://images.unsplash.com/photo-1501045661006-fcebe0257c3f?auto=format&fit=crop&w=1200&q=80" },
+                    { title: "Armário de Cozinha — R$ 1.357,00", imgUrl: "https://images.unsplash.com/photo-1556912167-f556f1f39faa?auto=format&fit=crop&w=1200&q=80" },
+                    { title: "Guarda-roupa — R$ 1.551,00", imgUrl: "https://images.unsplash.com/photo-1615873968403-89e068629265?auto=format&fit=crop&w=1200&q=80" },
+                    { title: "TV 40\" — R$ 1.299,99", imgUrl: "https://images.unsplash.com/photo-1593359677879-a4bb92f829d1?auto=format&fit=crop&w=1200&q=80" },
+                    { title: "Sofá — R$ 679,31", imgUrl: "https://images.unsplash.com/photo-1540574163026-643ea20ade25?auto=format&fit=crop&w=1200&q=80" },
+                    { title: "Vale-presente — R$ 50,00", imgUrl: "https://images.unsplash.com/photo-1513885535751-8b9238bd345a?auto=format&fit=crop&w=1200&q=80" },
+                    { title: "Vale-presente — R$ 100,00", imgUrl: "https://images.unsplash.com/photo-1512909006721-3d6018887383?auto=format&fit=crop&w=1200&q=80" },
+                    { title: "Vale-presente — R$ 200,00", imgUrl: "https://images.unsplash.com/photo-1526045478516-99145907023c?auto=format&fit=crop&w=1200&q=80" },
+                    { title: "Vale-presente — R$ 500,00", imgUrl: "https://images.unsplash.com/photo-1522204507769-2f3bdf5f52f8?auto=format&fit=crop&w=1200&q=80" }
+                ];
+
+                // =========================
+                // RENDERIZAÇÃO
+                // =========================
+                function createGiftCard(gift) {
+                    const article = document.createElement("article");
+                    article.className = "gift-item";
+
+                    const img = document.createElement("img");
+                    img.alt = gift.title;
+                    img.loading = "lazy";
+                    img.referrerPolicy = "no-referrer";
+                    img.src = gift.imgUrl || FALLBACK_IMAGE;
+                    img.onerror = () => (img.src = FALLBACK_IMAGE);
+
+                    const h3 = document.createElement("h3");
+                    h3.textContent = gift.title;
+
+                    const actions = document.createElement("div");
+                    actions.className = "gift-actions";
+
+                    const presentearLink = document.createElement("a");
+                    presentearLink.className = "btn";
+                    presentearLink.href = GIFT_PAYMENT_LINK;
+                    presentearLink.target = "_blank";
+                    presentearLink.rel = "noopener noreferrer";
+                    presentearLink.textContent = "Presentear";
+
+                    actions.appendChild(presentearLink);
+
+                    article.appendChild(img);
+                    article.appendChild(h3);
+                    article.appendChild(actions);
+
+                    return article;
+                }
+
+                document.addEventListener("DOMContentLoaded", () => {
+                    const grid = document.getElementById("giftGrid");
+                    const showMoreBtn = document.getElementById("showMoreBtn");
+
+                    // Renderiza todos os itens
+                    GIFTS.forEach((gift) => {
+                        grid.appendChild(createGiftCard(gift));
+                    });
+
+                    // Exibir mais
+                    const items = grid.querySelectorAll(".gift-item");
+                    let visibleCount = 8;
+
+                    function updateVisibility() {
+                        items.forEach((item, index) => {
+                            item.style.display = index < visibleCount ? "flex" : "none";
+                        });
+                        if (visibleCount >= items.length) {
+                            showMoreBtn.style.display = "none";
+                        }
+                    }
+
+                    showMoreBtn.addEventListener("click", () => {
+                        visibleCount += 8;
+                        updateVisibility();
+                    });
+
+                    updateVisibility();
+                });
+            </script>
+
+    </section>
+
+    <!-- RSVP -->
+    <section id="rsvp" class="alt">
+        <div class="container">
+            <div class="rsvp-wrap">
+                <h2 class="rsvp-title">Confirmação de presença</h2>
+                <p class="rsvp-subtitle">
+                    Informe o <strong>nome completo</strong> de todos os convidados deste convite.
+                    Caso haja mais pessoas, utilize <strong>“Adicionar outro nome”</strong>.
+                </p>
+
+                <div class="card rsvp-card">
+                    <form id="rsvpForm">
+
+                        <!-- SESSÃO ÚNICA -->
+                        <div class="rsvp-field">
+                            <label for="presencaSelect">Confirma sua presença ?</label>
+                            <select required name="presenca" id="presencaSelect" class="rsvp-select">
+                                <option value="">Selecione</option>
+                                <option value="Sim">Sim</option>
+                                <option value="Não">Não</option>
+                            </select>
+                        </div>
+
+                        <div class="rsvp-field" id="namesSection" style="display:none;">
+                            <label>Nome completo</label>
+
+                            <div id="nameList" style="display:grid;gap:10px;margin-top:10px;"></div>
+
+                            <div class="rsvp-actions">
+                                <button type="button" class="btn secondary" id="addNameBtn">
+                                    Adicionar outro nome +
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="rsvp-actions" style="margin-top:18px;">
+                            <button class="btn" type="submit">Confirmar</button>
+                        </div>
+
+                        <p class="hint" id="rsvpMsg" style="margin-top:10px;text-align:center;"></p>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <footer>
+        <div class="container">
+            Feito com carinho por Vinicius & Rute • © <span id="year"></span>
+        </div>
+    </footer>
+
+    <!-- SUPABASE (biblioteca) -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <!-- SEUS SCRIPTS QUE JÁ EXISTIAM (contador + pix + exibir mais) -->
+    <script>
+        (function () {
+            const el = document.getElementById("countdown");
+            if (!el) return;
+
+            const target = new Date(el.dataset.date);
+            const d = document.getElementById("d");
+            const h = document.getElementById("h");
+            const m = document.getElementById("m");
+            const s = document.getElementById("s");
+
+            const tick = () => {
+                const now = new Date();
+                const diff = Math.max(0, target - now);
+                const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+                const mins = Math.floor((diff / (1000 * 60)) % 60);
+                const secs = Math.floor((diff / 1000) % 60);
+                d.textContent = String(days);
+                h.textContent = String(hours);
+                m.textContent = String(mins);
+                s.textContent = String(secs);
+            };
+
+            tick();
+            setInterval(tick, 1000);
+        })();
+
+
+        // function copiarPix() {
+        //     const key = "viniweberrute@gmail.com";
+        //     navigator.clipboard
+        //         .writeText(key)
+        //         .then(() => alert("Chave PIX copiada com sucesso!"))
+        //         .catch(() => alert("Não foi possível copiar a chave PIX."));
+        // }
+
+        document.getElementById("year").textContent = new Date().getFullYear();
+    </script>
+
+    <script>
+        /**
+         * ============================
+         * 1) CONFIG SUPABASE
+         * ============================
+         */
+        const SUPABASE_URL = "https://cnbruzjrfmkhyqhqadrg.supabase.co";
+        const SUPABASE_ANON_KEY = "sb_publishable_lePdMFV0ZXBHlZ69fO-Jhg_LhBpmnOz";
+
+        const supa = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+        /**
+         * ============================
+         * 2) ELEMENTOS DO FORM
+         * ============================
+         */
+        const form = document.getElementById("rsvpForm");
+        const msg = document.getElementById("rsvpMsg");
+
+        const presencaSelect = document.getElementById("presencaSelect");
+        const namesSection = document.getElementById("namesSection");
+        const nameList = document.getElementById("nameList");
+        const addNameBtn = document.getElementById("addNameBtn");
+
+        function getNames() {
+            return Array.from(nameList.querySelectorAll("input"))
+                .map((i) => i.value.trim())
+                .filter(Boolean);
+        }
+
+        function addNameField() {
+            const row = document.createElement("div");
+            row.className = "rsvp-row";
+
+            const input = document.createElement("input");
+            input.type = "text";
+            input.placeholder = "Nome completo";
+            input.required = true;
+            input.className = "rsvp-input";
+
+            const remove = document.createElement("button");
+            remove.type = "button";
+            remove.className = "btn secondary";
+            remove.textContent = "Remover";
+            remove.onclick = () => row.remove();
+
+            row.appendChild(input);
+            row.appendChild(remove);
+            nameList.appendChild(row);
+        }
+
+        presencaSelect.addEventListener("change", () => {
+            const val = presencaSelect.value;
+
+            if (val === "Sim" || val === "Não") {
+                namesSection.style.display = "block";
+                if (nameList.children.length === 0) addNameField();
+            } else {
+                namesSection.style.display = "none";
+                nameList.innerHTML = "";
+            }
+        });
+
+        addNameBtn.addEventListener("click", addNameField);
+
+        /**
+         * ============================
+         * 3) ENVIO PARA SUPABASE
+         *  - 1 nome por linha
+         *  - colunas: nome_completo, status
+         * ============================
+         */
+        form.addEventListener("submit", async (e) => {
+            e.preventDefault();
+            msg.textContent = "Enviando...";
+
+            const status = presencaSelect.value;
+            const convidados = getNames();
+
+            if (!status) {
+                msg.textContent = "❌ Selecione Sim ou Não.";
+                return;
+            }
+
+            if (convidados.length === 0) {
+                msg.textContent = "❌ Informe pelo menos 1 nome.";
+                return;
+            }
+
+            const rows = convidados.map((nome) => ({
+                nome_completo: nome,
+                status: status,
+            }));
+
+            try {
+                const { error } = await supa.from("rsvp").insert(rows);
+                if (error) throw error;
+
+                msg.textContent = "✅ Registrado com sucesso! Obrigado! 🥰";
+                form.reset();
+                nameList.innerHTML = "";
+                namesSection.style.display = "none";
+            } catch (err) {
+                console.error(err);
+                msg.textContent = "❌ Erro ao registrar. Tente novamente.";
+            }
+        });
+    </script>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const burger = document.getElementById("navBurger");
+            const mobile = document.getElementById("navMobile");
+
+            if (!burger || !mobile) return;
+
+            const closeMenu = () => {
+                mobile.classList.remove("open");
+                burger.setAttribute("aria-expanded", "false");
+                mobile.setAttribute("aria-hidden", "true");
+            };
+
+            const toggleMenu = () => {
+                const isOpen = mobile.classList.contains("open");
+
+                if (isOpen) closeMenu();
+                else {
+                    mobile.classList.add("open");
+                    burger.setAttribute("aria-expanded", "true");
+                    mobile.setAttribute("aria-hidden", "false");
+                }
+            };
+
+            burger.addEventListener("click", toggleMenu);
+
+            mobile.querySelectorAll("a").forEach((a) => {
+                a.addEventListener("click", closeMenu);
+            });
+
+            window.addEventListener("resize", () => {
+                if (window.innerWidth > 820) closeMenu();
+            });
+        });
+    </script>
+
+</body>
+
+</html>
